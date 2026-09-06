@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Yönetim Paneli</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- GİRİŞ EKRANI -->
+  <div id="login-view" class="login-box">
+    <h2>Yönetim Girişi</h2>
+    <div class="field">
+      <label for="login-email">E-posta</label>
+      <input type="email" id="login-email" autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="login-password">Şifre</label>
+      <input type="password" id="login-password" autocomplete="current-password">
+    </div>
+    <button class="btn btn-primary" id="login-btn" style="width:100%;">Giriş Yap</button>
+    <p class="error-text" id="login-error" style="display:none;"></p>
+  </div>
+
+  <!-- YÖNETİM PANELİ -->
+  <div id="dashboard-view" class="admin-wrapper" style="display:none;">
+    <div class="admin-header">
+      <h1 id="dashboard-restaurant-name">Panel</h1>
+      <div style="display:flex; gap:8px;">
+        <a id="view-menu-link" href="#" target="_blank" class="btn btn-small">Menüyü Gör</a>
+        <button class="btn btn-small" id="logout-btn">Çıkış</button>
+      </div>
+    </div>
+
+    <nav class="admin-tabs">
+      <button class="admin-tab active" data-panel="panel-categories">Kategoriler</button>
+      <button class="admin-tab" data-panel="panel-products">Ürünler</button>
+      <button class="admin-tab" data-panel="panel-design">Tasarım</button>
+    </nav>
+
+    <!-- KATEGORİLER -->
+    <section id="panel-categories" class="admin-panel active">
+      <div class="card">
+        <h3>Yeni Kategori</h3>
+        <div class="field">
+          <input type="text" id="new-category-name" placeholder="Örn. Tatlılar">
+        </div>
+        <button class="btn btn-primary" id="add-category-btn">Ekle</button>
+      </div>
+      <div id="categories-list"></div>
+    </section>
+
+    <!-- ÜRÜNLER -->
+    <section id="panel-products" class="admin-panel">
+      <div class="card">
+        <h3 id="product-form-title">Yeni Ürün</h3>
+        <input type="hidden" id="product-id-field">
+        <div class="field">
+          <label>Ürün Adı</label>
+          <input type="text" id="product-name">
+        </div>
+        <div class="field">
+          <label>Açıklama</label>
+          <textarea id="product-description"></textarea>
+        </div>
+        <div class="field">
+          <label>Fiyat (₺)</label>
+          <input type="number" step="0.01" id="product-price">
+        </div>
+        <div class="field">
+          <label>Kategori</label>
+          <select id="product-category"></select>
+        </div>
+        <div class="field">
+          <label>Fotoğraf</label>
+          <input type="file" id="product-image" accept="image/*">
+          <img id="product-image-preview" style="display:none; margin-top:8px; width:80px; height:80px; object-fit:cover; border-radius:8px;">
+        </div>
+        <div class="field inline-toggle">
+          <input type="checkbox" id="product-active" checked>
+          <label for="product-active" style="margin:0;">Menüde görünsün (aktif)</label>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-primary" id="save-product-btn">Kaydet</button>
+          <button class="btn" id="cancel-product-edit-btn" style="display:none;">İptal</button>
+        </div>
+        <p class="error-text" id="product-error" style="display:none;"></p>
+      </div>
+      <div id="products-list"></div>
+    </section>
+
+    <!-- TASARIM -->
+    <section id="panel-design" class="admin-panel">
+      <div class="card">
+        <h3>Renkler</h3>
+        <div class="color-row">
+          <label for="color-primary">Ana renk (kategori/vurgu)</label>
+          <input type="color" id="color-primary">
+        </div>
+        <div class="color-row">
+          <label for="color-background">Arka plan rengi</label>
+          <input type="color" id="color-background">
+        </div>
+        <div class="color-row">
+          <label for="color-text">Yazı rengi</label>
+          <input type="color" id="color-text">
+        </div>
+        <div class="color-row">
+          <label for="color-button">Buton rengi</label>
+          <input type="color" id="color-button">
+        </div>
+        <div class="field">
+          <label>Kart Görünümü</label>
+          <select id="card-style">
+            <option value="rounded">Yumuşak köşeli</option>
+            <option value="square">Köşeli</option>
+            <option value="shadow">Belirgin köşeli</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Restoran Bilgileri</h3>
+        <div class="field">
+          <label>Menü Başlığı / Alt Yazı</label>
+          <input type="text" id="menu-title-input" placeholder="Örn. Ahmet Usta Lezzetleri">
+        </div>
+        <div class="field">
+          <label>Logo</label>
+          <input type="file" id="logo-image" accept="image/*">
+          <img id="logo-image-preview" style="display:none; margin-top:8px; width:64px; height:64px; object-fit:cover; border-radius:50%;">
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="save-design-btn">Tasarımı Kaydet</button>
+      <p class="error-text" id="design-error" style="display:none;"></p>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
